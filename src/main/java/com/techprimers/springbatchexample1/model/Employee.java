@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class User {
+public class Employee {
 
     @Id
     private Integer id;
@@ -14,7 +14,7 @@ public class User {
     private Integer salary;
     private Date time;
 
-    public User(Integer id, String name, String dept, Integer salary, Date time) {
+    public Employee(Integer id, String name, String dept, Integer salary, Date time) {
         this.id = id;
         this.name = name;
         this.dept = dept;
@@ -22,7 +22,7 @@ public class User {
         this.time = time;
     }
 
-    public User() {
+    public Employee() {
     }
 
     public Integer getId() {
