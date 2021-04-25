@@ -1,6 +1,7 @@
+/*
 package com.techprimers.springbatchexample1.batch;
 
-import com.techprimers.springbatchexample1.model.User;
+import com.techprimers.springbatchexample1.model.Employee;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Processor implements ItemProcessor<User, User> {
+public class Processor implements ItemProcessor<Employee, Employee> {
 
     private static final Map<String, String> DEPT_NAMES =
             new HashMap<>();
@@ -21,12 +22,13 @@ public class Processor implements ItemProcessor<User, User> {
     }
 
     @Override
-    public User process(User user) throws Exception {
+    public Employee process(Employee user) throws Exception {
         String deptCode = user.getDept();
         String dept = DEPT_NAMES.get(deptCode);
         user.setDept(dept);
-        user.setTime(new Date());
+        user.setCurrentDate(new Date());
         System.out.println(String.format("Converted from [%s] to [%s]", deptCode, dept));
         return user;
     }
 }
+*/

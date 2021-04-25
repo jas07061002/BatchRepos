@@ -1,4 +1,4 @@
-package com.techprimers.springbatchexample1.model;
+package com.springbatchexample1.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,14 +12,14 @@ public class Employee {
     private String name;
     private String dept;
     private Integer salary;
-    private Date time;
+    private Date joiningdate;
 
-    public Employee(Integer id, String name, String dept, Integer salary, Date time) {
+    public Employee(Integer id, String name, String dept, Integer salary, Date joiningdate) {
         this.id = id;
         this.name = name;
         this.dept = dept;
         this.salary = salary;
-        this.time = time;
+        this.joiningdate = joiningdate;
     }
 
     public Employee() {
@@ -68,11 +68,11 @@ public class Employee {
         return sb.toString();
     }
 
-    public Date getTime() {
-        return time;
+    public Date getJoiningdate() {
+        return joiningdate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setJoiningdate(Date joiningdate) {
+        this.joiningdate = joiningdate;
     }
 }
