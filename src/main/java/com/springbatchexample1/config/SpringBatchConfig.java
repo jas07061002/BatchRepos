@@ -1,7 +1,7 @@
 package com.springbatchexample1.config;
 
 import com.springbatchexample1.model.Employee;
-import com.springbatchexample1.model.UserMapper;
+import com.springbatchexample1.model.EmployeeMapper;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -55,7 +55,7 @@ public class SpringBatchConfig {
         JdbcCursorItemReader<Employee> reader = new JdbcCursorItemReader<Employee>();
         reader.setDataSource(dataSource);
         reader.setSql("SELECT id,name ,dept ,salary, joiningdate FROM employee");
-        reader.setRowMapper(new UserMapper());
+        reader.setRowMapper(new EmployeeMapper());
         return reader;
     }
 
