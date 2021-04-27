@@ -27,33 +27,6 @@ public class BeneController {
     @Autowired
     AccountRepository accountRepository;
 
-
-    @PostMapping(path = "/bat")
-    public GeneralTrustBene saveController(@RequestBody GeneralTrustBene generalTrustBene) {
-        AccountBene accountBene = new AccountBene();
-        List<GeneralTrustBene> generalTrustBeneList = new ArrayList<>();
-        generalTrustBeneList.add(generalTrustBene);
-      //  accountBene.setGeneralTrustBene(generalTrustBeneList);
-        // account.setAccountBene(accountBene);
-        accountBeneRepository.save(accountBene);
-        return generalTrustBene;
-
-    }
-
-    @PostMapping(path = "/bene")
-    public GeneralTrustBene saveBene(@RequestBody GeneralTrustBene generalTrustBene) {
-        Account account = new Account();
-       // generalTrustBene.setAccount(account);
-        AccountBene accountBene = new AccountBene();
-        List<GeneralTrustBene> generalTrustBeneList = new ArrayList<>();
-        generalTrustBeneList.add(generalTrustBene);
-    //    accountBene.setGeneralTrustBene(generalTrustBeneList);
-        // account.setAccountBene(accountBene);
-        accountBeneRepository.save(accountBene);
-        return generalTrustBene;
-
-    }
-
     @PostMapping(path = "/beneAndAccount")
     public String saveBeneAccount(@RequestBody ObjectConverter objectConverter) {
         Account account = new Account();
@@ -63,17 +36,13 @@ public class BeneController {
         account.branchNum = objectConverter.branchNum;
         account.cdicTrustType = objectConverter.cdicTrustType;
         List<GeneralTrustBene> generalTrustBeneList = new ArrayList<>(objectConverter.generaltrustbene);
-        for(int i=0;i<generalTrustBeneList.size();i++) {
-      //      generalTrustBeneList.get(i).setAccount(account);
-        }
         AccountBene accountBene = new AccountBene();
-        accountBene.setGeneralTrustBenes(generalTrustBeneList.get(0));
+        account.setGeneralTrustBeneList(generalTrustBeneList);
+       // generalTrustBeneList.forEach(generalTrustBene -> generalTrustBene.setAccount(account));
         accountBene.setAccount(account);
-        // account.setAccountBene(accountBene);
-       // account.setGeneralTrustBeneList(generalTrustBeneList);
+        accountBene.setGeneralTrustBenes(account.getGeneralTrustBeneList().get(0));
         accountBeneRepository.save(accountBene);
-     //  beneRepository.saveAll(generalTrustBeneList);
-      //  accountBeneRepository.save(accountBene);
+
         return "success";
 
     }

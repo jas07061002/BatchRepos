@@ -16,7 +16,8 @@ import java.util.List;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "seq1")
+    @SequenceGenerator(name = "seq1", initialValue = 1000, allocationSize = 1)
     @Column(name="ACCOUNT_ID")
     public Integer accountID;
 
@@ -41,19 +42,23 @@ public class Account {
     @Column(name="LAST_UPDATE_TIME")
     public Timestamp lastUpdateTime;
 
-  /*  @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
-    private List<GeneralTrustBene> generalTrustBeneList;*/
-
-
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "ACCOUNT",
-            joinColumns = { @JoinColumn(name = "ACCOUNT_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "BENE_ID") })
-    private List<AccountBene> accountBenes;
+    @JoinTable(  name = "ACCOUNT_BENE",
+    joinColumns ={
+            @JoinColumn(name = "ACCOUNT_ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "BENE_ID")})
+    private List<GeneralTrustBene> generalTrustBeneList;
 
-
-
-
+    public Account(Integer accountNum, Integer branchNum, String accountType, String accountStatus, String cdicTrustType, Timestamp accountClosedDate, Timestamp lastUpdateTime, List<GeneralTrustBene> generalTrustBeneList) {
+        this.accountNum = accountNum;
+        this.branchNum = branchNum;
+        this.accountType = accountType;
+        this.accountStatus = accountStatus;
+        this.cdicTrustType = cdicTrustType;
+        this.accountClosedDate = accountClosedDate;
+        this.lastUpdateTime = lastUpdateTime;
+        this.generalTrustBeneList = generalTrustBeneList;
+        //this.accountBenes = accountBenes;
+    }
 }

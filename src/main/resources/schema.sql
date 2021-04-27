@@ -1,5 +1,9 @@
+CREATE SEQUENCE seq1
+START WITH 1000
+INCREMENT BY 1;
+
 CREATE TABLE ACCOUNT(
-ACCOUNT_ID int not null auto_increment primary key,
+ACCOUNT_ID int not null sequence seq1 primary key,
 ACCOUNT_NO int not null,
 BRANCH_NO int not null,
 ACCOUNT_TYPE VARCHAR(3) not null,
