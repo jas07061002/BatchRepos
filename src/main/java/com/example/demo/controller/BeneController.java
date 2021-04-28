@@ -8,6 +8,7 @@ import com.example.demo.repository.AccountBeneRepository;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.BeneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,5 +46,10 @@ public class BeneController {
 
         return "success";
 
+    }
+
+    @GetMapping(path = "/beneinfo")
+    public List<GeneralTrustBene> getBene(GeneralTrustBene generalTrustBene){
+        return beneRepository.findAll();
     }
 }
