@@ -20,6 +20,7 @@ public class ObjectConverter {
     public String accountType;
     public String cdicTrustType;
     public List<GeneralTrustBene> generaltrustbene;
+    public Integer per;
 
 
 

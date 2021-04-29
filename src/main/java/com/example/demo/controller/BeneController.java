@@ -37,19 +37,25 @@ public class BeneController {
         account.branchNum = objectConverter.branchNum;
         account.cdicTrustType = objectConverter.cdicTrustType;
         List<GeneralTrustBene> generalTrustBeneList = new ArrayList<>(objectConverter.generaltrustbene);
-        AccountBene accountBene = new AccountBene();
-        account.setGeneralTrustBeneList(generalTrustBeneList);
-       // generalTrustBeneList.forEach(generalTrustBene -> generalTrustBene.setAccount(account));
-        accountBene.setAccount(account);
-        accountBene.setGeneralTrustBenes(account.getGeneralTrustBeneList().get(0));
-        accountBeneRepository.save(accountBene);
-
+        List<AccountBene> accountBenes = new ArrayList<>(generalTrustBeneList.size());
+        for (GeneralTrustBene generalTrustBene : generalTrustBeneList) {
+            AccountBene accountBene = new AccountBene();
+            accountBene.setAccount(account);
+            accountBene.setPer(objectConverter.getPer());
+            accountBene.setGeneralTrustBenes(generalTrustBene);
+            accountBenes.add(accountBene);
+         //   generalTrustBene.setGeneralTrustBenes(accountBene);
+        }
+    //    account.setGeneralTrustBeneList(generalTrustBeneList);
+        account.setAccountBenes(accountBenes);
+        accountRepository.save(account);
+      //  beneRepository.saveAll(generalTrustBeneList);
         return "success";
 
     }
 
     @GetMapping(path = "/beneinfo")
-    public List<GeneralTrustBene> getBene(GeneralTrustBene generalTrustBene){
+    public List<GeneralTrustBene> getBene(GeneralTrustBene generalTrustBene) {
         return beneRepository.findAll();
     }
 }

@@ -42,15 +42,20 @@ public class Account {
     @Column(name="LAST_UPDATE_TIME")
     public Timestamp lastUpdateTime;
 
-    @OneToMany(cascade = CascadeType.ALL)
+   /* @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(  name = "ACCOUNT_BENE",
     joinColumns ={
             @JoinColumn(name = "ACCOUNT_ID")},
             inverseJoinColumns = {
                     @JoinColumn(name = "BENE_ID")})
-    private List<GeneralTrustBene> generalTrustBeneList;
+    private List<GeneralTrustBene> generalTrustBeneList;*/
 
-    public Account(Integer accountNum, Integer branchNum, String accountType, String accountStatus, String cdicTrustType, Timestamp accountClosedDate, Timestamp lastUpdateTime, List<GeneralTrustBene> generalTrustBeneList) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    //@JoinColumn(name = "ACCOUNT_ID")
+    private List<AccountBene> accountBenes;
+
+    public Account(Integer accountNum, Integer branchNum, String accountType, String accountStatus, String cdicTrustType, Timestamp accountClosedDate, Timestamp lastUpdateTime,
+                   List<AccountBene> accountBenes) {
         this.accountNum = accountNum;
         this.branchNum = branchNum;
         this.accountType = accountType;
@@ -58,7 +63,7 @@ public class Account {
         this.cdicTrustType = cdicTrustType;
         this.accountClosedDate = accountClosedDate;
         this.lastUpdateTime = lastUpdateTime;
-        this.generalTrustBeneList = generalTrustBeneList;
-        //this.accountBenes = accountBenes;
+      //  this.generalTrustBeneList = generalTrustBeneList;
+        this.accountBenes = accountBenes;
     }
 }

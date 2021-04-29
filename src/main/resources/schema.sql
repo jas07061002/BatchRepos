@@ -39,5 +39,6 @@ CREATE TABLE ACCOUNT_BENE(
 ACCOUNT_BENE_ID int not null auto_increment,
 ACCOUNT_ID int not null,
 BENE_ID int not null,
+per int,
 FOREIGN KEY (ACCOUNT_ID) references ACCOUNT(ACCOUNT_ID),
 FOREIGN KEY (BENE_ID) references GENERAL_TRUST_BENE(BENE_ID));
