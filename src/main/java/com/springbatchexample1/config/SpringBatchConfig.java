@@ -7,11 +7,13 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -21,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 
 
 @Configuration
@@ -33,6 +36,7 @@ public class SpringBatchConfig {
     public Job job(JobBuilderFactory jobBuilderFactory,
                    StepBuilderFactory stepBuilderFactory,
                    ItemReader<MockData> itemReader,
+                   ItemProcessor<MockData,MockData> itemProcessor,
                  //  ItemWriter<MockData> itemWriter
                    FlatFileItemWriter<MockData> itemWriters
     ) {
@@ -40,6 +44,7 @@ public class SpringBatchConfig {
         Step step = stepBuilderFactory.get("ETL-file-load")
                 .<MockData, MockData>chunk(100)
                 .reader(itemReader)
+                .processor(itemProcessor)
            //     .writer(itemWriter)
                 .writer(itemWriters)
                 .build();
@@ -66,15 +71,22 @@ public class SpringBatchConfig {
         );
     }
 
+    @Bean
+    public ItemProcessor<MockData, MockData> processor(){
+        return new ItemProcessor<MockData, MockData>() {
+            @Override
+            public MockData process(MockData item) {
+                if(item.getGender().equals("Bigender")){
+                    return item;
+                }
+                else{
+                    return null;
+                }
+             //   return item;
+            }
+        };
+    }
 
-   /* @Bean
-    public ItemStreamReader<Employee> itemReader() {
-        JdbcCursorItemReader<Employee> reader = new JdbcCursorItemReader<Employee>();
-        reader.setDataSource(dataSource);
-        reader.setSql("SELECT id,name ,dept ,salary, joiningdate FROM employee");
-        reader.setRowMapper(new EmployeeMapper());
-        return reader;
-    }*/
 
 /*    public class ExampleWriter implements ItemWriter<SoccerJsonEntry>{
         private static Logger logger = LoggerFactory.getLogger(ExampleWriter.class);
