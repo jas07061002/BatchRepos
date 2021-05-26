@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-class RestEmployeeReader implements ItemReader<MockData> {
+class MockDataReader implements ItemReader<MockData> {
 
     private final String apiUrl;
     private final RestTemplate restTemplate;
@@ -16,7 +16,7 @@ class RestEmployeeReader implements ItemReader<MockData> {
     private int nextStudentIndex;
     private List<MockData> studentData;
 
-    RestEmployeeReader(String apiUrl, RestTemplate restTemplate) {
+    MockDataReader(String apiUrl, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.restTemplate = restTemplate;
         nextStudentIndex = 0;
